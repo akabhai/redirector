@@ -78,7 +78,7 @@ function generate() {
   const input = document.getElementById('inputUrl').value.trim();
   if (!input) return alert("Please enter a valid URL");
 
-  const base = "https://yourusername.github.io/redirect.html?url="; // 👈 change this to your actual GitHub Pages link
+  const base = "https://akabhai.github.io/redirector/redirect.html?url="; // 👈 change this to your actual GitHub Pages link
   const link = base + encodeURIComponent(input);
 
   document.getElementById('output').innerHTML = `
