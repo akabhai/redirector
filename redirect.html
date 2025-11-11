@@ -1,78 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redirecting...</title>
-<style>
-body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: linear-gradient(135deg, #2b5876, #4e4376);
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  text-align: center;
-}
-.loader {
-  width: 60px;
-  height: 60px;
-  border: 6px solid rgba(255,255,255,0.3);
-  border-top: 6px solid #00e5ff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 20px;
-}
-@keyframes spin {
-  0% {transform: rotate(0deg);}
-  100% {transform: rotate(360deg);}
-}
-.progress {
-  width: 80%;
-  height: 8px;
-  background: rgba(255,255,255,0.3);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-top: 15px;
-}
-.bar {
-  height: 100%;
-  width: 0%;
-  background: #00e5ff;
-  animation: fill 5s linear forwards;
-}
-@keyframes fill {
-  to {width: 100%;}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .loader {
+      border: 5px solid #333;
+      border-top: 5px solid #1e90ff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
+  <div class="loader"></div>
+  <h2>Redirecting you... Please wait</h2>
 
-<div class="loader"></div>
-<h2>Redirecting to your link...</h2>
-<div class="progress"><div class="bar"></div></div>
-<p id="countdown">Redirecting in 5 seconds...</p>
-
-<script>
-const url = new URLSearchParams(window.location.search).get("url");
-let seconds = 5;
-
-if (url) {
-  const countdownEl = document.getElementById('countdown');
-  const timer = setInterval(() => {
-    seconds--;
-    countdownEl.textContent = `Redirecting in ${seconds} second${seconds !== 1 ? 's' : ''}...`;
-    if (seconds <= 0) {
-      clearInterval(timer);
-      window.location.href = decodeURIComponent(url);
+  <script>
+    const id = new URLSearchParams(window.location.search).get("id");
+    if (!id) {
+      document.body.innerHTML = "<h2 style='color:red;'>Invalid Redirect Link ❌</h2>";
+      throw new Error("No redirect id");
     }
-  }, 1000);
-} else {
-  document.body.innerHTML = "<h2>No target URL found!</h2>";
-}
-</script>
 
+    try {
+      const [base64] = id.split(".");
+      const decoded = decodeURIComponent(escape(atob(base64)));
+      window.location.href = decoded;
+    } catch (err) {
+      document.body.innerHTML = "<h2 style='color:red;'>Error: Invalid link data ❌</h2>";
+    }
+  </script>
 </body>
 </html>
