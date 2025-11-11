@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirect Link Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Advanced Redirect Link Generator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -23,53 +23,45 @@
       border: none;
       font-size: 16px;
     }
-    input {
-      width: 90%;
-      max-width: 400px;
-    }
+    input { width: 90%; max-width: 400px; }
     button {
       background: #1e90ff;
       color: #fff;
       cursor: pointer;
       transition: background 0.3s;
     }
-    button:hover {
-      background: #0077ff;
-    }
-    .result {
-      margin-top: 15px;
-      word-break: break-all;
-    }
+    button:hover { background: #0077ff; }
+    .result { margin-top: 15px; word-break: break-all; color: #0ff; }
   </style>
 </head>
 <body>
-
-  <h2>🔗 Redirect Link Generator</h2>
-  <input type="text" id="targetUrl" placeholder="Enter target URL (e.g. https://example.com)">
-  <button onclick="generateLink()">Generate Redirect Link</button>
+  <h2>🔐 Complex Redirect Link Generator</h2>
+  <input id="targetUrl" type="text" placeholder="Enter target URL (e.g. https://example.com)">
+  <button onclick="generateLink()">Generate Complex Link</button>
   <div class="result" id="result"></div>
 
   <script>
-    // 🛡️ Secret Key Protection
+    const SECRET_KEY = "streamanimehindionline4ubyaccess";
     const key = new URLSearchParams(window.location.search).get("key");
-    if (key !== "streamanimehindionline4ubyaccess") { // ← change this to your secret key
+    if (key !== SECRET_KEY) {
       document.body.innerHTML = "<h2 style='color:red;text-align:center;margin-top:100px;'>Access Denied ❌</h2>";
       throw new Error("Unauthorized Access");
     }
 
-    // 🔗 Redirect Generator Logic
     function generateLink() {
       const url = document.getElementById("targetUrl").value.trim();
       if (!url) return alert("Please enter a valid URL!");
 
-      const encodedUrl = encodeURIComponent(url);
-      const redirectLink = `https://akabhai.github.io/redirector/redirect.html?url=${encodedUrl}`;
+      const base64 = btoa(unescape(encodeURIComponent(url)));
+      const random = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      const encodedId = base64 + "." + random;
+      const finalLink = `https://akabhai.github.io/redirector/redirect.html?id=${encodedId}`;
+
       document.getElementById("result").innerHTML = `
-        <p>Your Redirect Link:</p>
-        <a href="${redirectLink}" target="_blank">${redirectLink}</a>
+        <p><strong>Your Complex Redirect Link:</strong></p>
+        <a href="${finalLink}" target="_blank">${finalLink}</a>
       `;
     }
   </script>
-
 </body>
 </html>
