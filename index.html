@@ -1,92 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart Redirect Link Generator</title>
-<style>
-body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 20px;
-}
-.container {
-  background: rgba(255,255,255,0.1);
-  padding: 30px;
-  border-radius: 15px;
-  max-width: 600px;
-  width: 100%;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
-}
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 26px;
-}
-input, button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  margin-top: 10px;
-  font-size: 16px;
-}
-input {
-  background: #fff;
-  color: #000;
-}
-button {
-  background: #00bcd4;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
-}
-button:hover {
-  background: #0097a7;
-}
-.output {
-  margin-top: 20px;
-  background: rgba(255,255,255,0.2);
-  padding: 10px;
-  border-radius: 8px;
-  word-break: break-all;
-}
-a {
-  color: #ffeb3b;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirect Link Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+    }
+    input {
+      width: 90%;
+      max-width: 400px;
+    }
+    button {
+      background: #1e90ff;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #0077ff;
+    }
+    .result {
+      margin-top: 15px;
+      word-break: break-all;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>Redirect Link Generator</h1>
-  <p>Paste any URL below and generate a safe redirect link.</p>
-  <input type="text" id="inputUrl" placeholder="Enter your target URL (https://example.com)">
-  <button onclick="generate()">Generate Redirect Link</button>
-  <div id="output" class="output"></div>
-</div>
+  <h2>🔗 Redirect Link Generator</h2>
+  <input type="text" id="targetUrl" placeholder="Enter target URL (e.g. https://example.com)">
+  <button onclick="generateLink()">Generate Redirect Link</button>
+  <div class="result" id="result"></div>
 
-<script>
-function generate() {
-  const input = document.getElementById('inputUrl').value.trim();
-  if (!input) return alert("Please enter a valid URL");
+  <script>
+    // 🛡️ Secret Key Protection
+    const key = new URLSearchParams(window.location.search).get("key");
+    if (key !== "streamanimehindionline4ubyaccess") { // ← change this to your secret key
+      document.body.innerHTML = "<h2 style='color:red;text-align:center;margin-top:100px;'>Access Denied ❌</h2>";
+      throw new Error("Unauthorized Access");
+    }
 
-  const base = "https://akabhai.github.io/redirector/redirect.html?url="; // 👈 change this to your actual GitHub Pages link
-  const link = base + encodeURIComponent(input);
+    // 🔗 Redirect Generator Logic
+    function generateLink() {
+      const url = document.getElementById("targetUrl").value.trim();
+      if (!url) return alert("Please enter a valid URL!");
 
-  document.getElementById('output').innerHTML = `
-    <strong>Your Redirect Link:</strong><br>
-    <a href="${link}" target="_blank">${link}</a>
-  `;
-}
-</script>
+      const encodedUrl = encodeURIComponent(url);
+      const redirectLink = `https://akabhai.github.io/redirector/redirect.html?url=${encodedUrl}`;
+      document.getElementById("result").innerHTML = `
+        <p>Your Redirect Link:</p>
+        <a href="${redirectLink}" target="_blank">${redirectLink}</a>
+      `;
+    }
+  </script>
 
 </body>
 </html>
